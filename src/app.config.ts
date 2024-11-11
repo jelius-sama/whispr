@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export default {
-    title: "Chat App",
+    title: "Whispr",
     description: "Chat with anyone.",
     icons: {
         icon: "/assets/favicon.ico",
