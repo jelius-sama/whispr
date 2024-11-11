@@ -1,4 +1,4 @@
-import NavItem, { UserProfile } from "@/components/layout/nav-item";
+import NavItems, { UserProfile } from "@/components/layout/nav-item";
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -38,7 +38,7 @@ export default function Sidenav() {
                 </SheetHeader>
 
                 <ScrollArea className="w-full" style={{ padding: `${cssVars.marginPx}px`, paddingTop: `${cssVars.navItemsMarginPx}px`, height: `calc(100% - ${cssVars.navHeaderPx + cssVars.navItemsMarginPx}px)` }}>
-                    <NavItem />
+                    <NavItems />
                 </ScrollArea>
             </SheetContent>
         </Sheet>

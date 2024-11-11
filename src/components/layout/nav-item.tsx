@@ -3,64 +3,47 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ThemeToggle } from "@/components/theme-toggle";
-import React from 'react';
-import { HomeIcon, LogInIcon, SettingsIcon, UserCircle2Icon, UserPlus2Icon } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { LogInIcon, MessageCircleIcon, SettingsIcon, UserCircle2Icon, UserPlus2Icon } from 'lucide-react';
 import { SheetClose } from '@/components/ui/sheet';
 import { usePathname } from 'next/navigation';
 import { userAtom } from '@/components/atoms';
 import { useAtomValue } from 'jotai';
 import { cssVars } from '@/app.config';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { getSession, User } from '@/server/auth';
 
-export default function NavItem() {
-    const path = usePathname();
+export default function NavItems() {
+    const [user, setUser] = useState<User | null>(null);
+
+    useEffect(() => {
+        (async function () {
+            try {
+                const { user } = await getSession();
+                setUser(user);
+            } catch (error) {
+                setUser(null);
+            }
+        })();
+    }, []);
 
     return (
         <div className='flex flex-col gap-y-2'>
-            <SheetClose asChild>
-                <Button variant={path === '/' ? 'secondary' : 'outline'} asChild className='w-full justify-start'>
-                    <Link href={'/'}>
-                        <HomeIcon />
-                        Home
-                    </Link>
-                </Button>
-            </SheetClose>
+            <NavItem href='/' title='Chats' icon={<MessageCircleIcon />} />
 
-            <SheetClose asChild>
-                <Button variant={path === '/profile' ? 'secondary' : 'outline'} asChild className='w-full justify-start'>
-                    <Link href={'/profile'}>
-                        <UserCircle2Icon />
-                        Profile
-                    </Link>
-                </Button>
-            </SheetClose>
+            {user && (
+                <NavItem href='/profile' title='Profile' icon={<UserCircle2Icon />} />
+            )}
 
-            <SheetClose asChild>
-                <Button variant={path === '/settings' ? 'secondary' : 'outline'} asChild className='w-full justify-start'>
-                    <Link href={'/settings'}>
-                        <SettingsIcon />
-                        Settings
-                    </Link>
-                </Button>
-            </SheetClose>
+            {!user && (
+                <React.Fragment>
+                    <NavItem href='/sign-in' title='Sign in' icon={<LogInIcon />} />
 
-            <SheetClose asChild>
-                <Button variant={path === '/sign-in' ? 'secondary' : 'outline'} asChild className='w-full justify-start'>
-                    <Link href={'/sign-in'}>
-                        <LogInIcon />
-                        Sign in
-                    </Link >
-                </Button>
-            </SheetClose>
+                    <NavItem href='/sign-up' title='Sign up' icon={<UserPlus2Icon />} />
+                </React.Fragment>
+            )}
 
-            <SheetClose asChild>
-                <Button variant={path === '/sign-up' ? 'secondary' : 'outline'} asChild className='w-full justify-start'>
-                    <Link href={'/sign-up'}>
-                        <UserPlus2Icon />
-                        Sign up
-                    </Link>
-                </Button>
-            </SheetClose>
+            <NavItem href='/settings' title='Settings' icon={<SettingsIcon />} />
         </div>
     );
 }
@@ -89,5 +72,20 @@ export function UserProfile() {
                 </Link>
             </Button>
         </div>
+    );
+}
+
+export function NavItem({ href, title, icon }: { href: string; title: string; icon: React.JSX.Element; }) {
+    const path = usePathname();
+
+    return (
+        <SheetClose asChild>
+            <Button variant={path === href ? 'secondary' : 'outline'} asChild className='w-full justify-start'>
+                <Link href={href}>
+                    {icon}
+                    {title}
+                </Link>
+            </Button>
+        </SheetClose>
     );
 }
