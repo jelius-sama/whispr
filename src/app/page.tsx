@@ -3,6 +3,7 @@ import ChatNav from "@/components/layout/chat-nav";
 import MarginedContent from "@/components/ui/margined-content";
 import { getSession } from "@/server/auth";
 import { Metadata, ServerRuntime } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Home"
@@ -10,8 +11,10 @@ export const metadata: Metadata = {
 
 export const runtime: ServerRuntime = 'edge';
 
-export default async function HomePage() {
+export default async function HomePage({ searchParams }: { searchParams: { chat?: string; }; }) {
   const { user } = await getSession();
+
+  if (!user) redirect('/sign-in');
 
   return (
     <MarginedContent>
@@ -21,7 +24,13 @@ export default async function HomePage() {
         </nav>
 
         <section className="flex-1 rounded-md bg-primary-foreground">
-          <Chat />
+          {searchParams.chat ? (
+            <Chat chatID={searchParams.chat} />
+          ) : (
+            <div className="w-full h-full place-content-center">
+              <p className="text-center font-bold text-xl">Start chatting</p>
+            </div>
+          )}
         </section>
       </section>
     </MarginedContent>
