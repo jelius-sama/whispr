@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import MarginedContent from "@/components/ui/margined-content";
 import testServerFunction from "@/server/function/test";
-import { createServerClient } from "@/server/supabase/create-client";
+import { createServerClient } from "@/server/supabase/edge";
 import getUserOrRedirect from "@/utils/get-user";
 import { Metadata, ServerRuntime } from "next";
 

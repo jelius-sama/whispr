@@ -1,4 +1,4 @@
-import { createServerClient } from '@/server/supabase/create-client';
+import { createServerClient } from '@/server/supabase/edge';
 import { ServerRuntime } from 'next';
 import { NextResponse } from 'next/server';
 

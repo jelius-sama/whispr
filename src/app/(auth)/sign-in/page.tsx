@@ -8,7 +8,7 @@ import { Metadata, ServerRuntime } from "next";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { RedirectType } from "next/navigation";
-import { createServerClient } from "@/server/supabase/create-client";
+import { createServerClient } from "@/server/supabase/edge";
 import { headers } from "next/headers";
 import { Button } from "@/components/ui/button";
 import getUserOrRedirect from "@/utils/get-user";

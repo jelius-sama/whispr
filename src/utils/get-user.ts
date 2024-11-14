@@ -1,21 +1,35 @@
 import { User } from "@/components/atoms";
-import { createServerClient } from "@/server/supabase/create-client";
+import { createServerClient } from "@/server/supabase/edge";
 import { UserMetadata } from "@/types";
 import { redirect, RedirectType } from "next/navigation";
 
-export default async function getUserOrRedirect({ redirectTo }: { redirectTo: 'home' | 'sign-in'; }): Promise<{ user: User; } | never> {
+type GetUserOrRedirectReturn<T extends 'home' | 'sign-in'> =
+    T extends 'sign-in'
+    ? { user: User; }
+    : never;
+
+export default async function getUserOrRedirect<T extends 'home' | 'sign-in'>({ redirectTo }: { redirectTo: T; }): Promise<GetUserOrRedirectReturn<T>> {
     const supabase = createServerClient();
     const { data: { user } } = await supabase.auth.getUser();
 
-    if (redirectTo === 'home' && user) return redirect('/', RedirectType.replace);
-    if (redirectTo === 'sign-in' && !user) return redirect('/', RedirectType.replace);
+    if (redirectTo === 'home') {
+        if (user) {
+            redirect('/', RedirectType.replace);
+        }
+        return undefined as unknown as GetUserOrRedirectReturn<T>; // Explicitly return for `home`
+    }
 
-    if (!user) throw new Error("User not found but could not redirect.");
+    if (redirectTo === 'sign-in') {
+        if (!user) {
+            redirect('/sign-in', RedirectType.replace);
+        }
+        return {
+            user: {
+                ...user!,
+                user_metadata: user.user_metadata as UserMetadata,
+            },
+        } as GetUserOrRedirectReturn<T>;
+    }
 
-    return {
-        user: {
-            ...user,
-            user_metadata: user.user_metadata as UserMetadata,
-        },
-    };
+    throw new Error("Unhandled redirectTo value");
 }

@@ -54,14 +54,8 @@ export function UserProfile() {
             <Button asChild className='w-10 h-10 rounded-full [&_svg]:size-6 bg-background hover:bg-background'>
                 <Link href={user ? '/profile' : '/sign-in'}>
                     <Avatar className='w-10 h-10 bg-background' style={{ border: '1px solid hsl(240, 3.7%, 15.9%)' }}>
-                        {user ? (
-                            <>
-                                <AvatarImage src={`${user.user_metadata.avatar_url}`} width={cssVars.headerPx} height={cssVars.headerPx} alt={user.user_metadata.full_name || "user"} />
-                                <AvatarFallback className='bg-background'><UserCircle2Icon className='text-foreground' /></AvatarFallback>
-                            </>
-                        ) : (
-                            <AvatarFallback className='bg-background'><UserCircle2Icon className='text-foreground' /></AvatarFallback>
-                        )}
+                        <AvatarImage src={user ? `${user.user_metadata.avatar_url}` : undefined} width={cssVars.headerPx} height={cssVars.headerPx} alt={user ? user.user_metadata.full_name || "Profile" : "Sign in"} />
+                        <AvatarFallback className='bg-background'><UserCircle2Icon className='text-foreground' /></AvatarFallback>
                     </Avatar>
                 </Link>
             </Button>

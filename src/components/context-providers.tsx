@@ -7,13 +7,21 @@ import { User, userAtom } from "@/components/atoms";
 import { Spinner } from "@/components/ui/spinner";
 import Image from "next/image";
 import { UserMetadata } from "@/types";
+import { createBrowserClient } from "@/server/supabase/client";
 
 export interface ContextProvidersProps extends ThemeProviderProps {
-    user: User | null;
 }
 
-export function ContextProviders({ children, user, ...props }: ContextProvidersProps) {
+export function ContextProviders({ children, ...props }: ContextProvidersProps) {
     const [userState, setUserState] = useAtom(userAtom);
+    const supabase = createBrowserClient();
+    const [user, setUser] = React.useState<User | null>(null);
+
+    React.useEffect(() => {
+        (async () => {
+            setUser((await supabase.auth.getUser()).data.user as User | null);
+        })();
+    }, []);
 
     React.useEffect(() => {
         if (!user) {
@@ -27,7 +35,7 @@ export function ContextProviders({ children, user, ...props }: ContextProvidersP
                 user_metadata: user.user_metadata as UserMetadata,
             },
         });
-    }, [user]);
+    }, [user, setUserState]);
 
     return (
         <NextThemesProvider {...props}>
