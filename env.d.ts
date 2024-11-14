@@ -2,5 +2,7 @@
 
 interface CloudflareEnv {
 	cache: KVNamespace;
+	SUPABASE_URL: "https://bpsgotfmgrflivhczbux.supabase.co";
+	SUPABASE_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJwc2dvdGZtZ3JmbGl2aGN6YnV4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE1NjI1MjgsImV4cCI6MjA0NzEzODUyOH0.mtZXe9TaYf-dPZazPEgsvPxcWyQqo74jLBfQDZYEtfM";
 	DB: D1Database;
 }

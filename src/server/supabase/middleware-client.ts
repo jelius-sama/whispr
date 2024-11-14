@@ -1,7 +1,9 @@
+import { getRequestContext } from '@cloudflare/next-on-pages';
 import { createServerClient } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
 
 export const createMiddlewareClient = (request: NextRequest) => {
+    const { env } = getRequestContext();
     // Create an unmodified response
     let response = NextResponse.next({
         request: {
@@ -10,8 +12,8 @@ export const createMiddlewareClient = (request: NextRequest) => {
     });
 
     const supabase = createServerClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        env.SUPABASE_URL,
+        env.SUPABASE_KEY,
         {
             cookies: {
                 getAll() {

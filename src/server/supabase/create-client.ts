@@ -1,12 +1,14 @@
+import { getRequestContext } from "@cloudflare/next-on-pages";
 import { createBrowserClient as browserClient, createServerClient as serverClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
 export const createServerClient = () => {
   const cookieStore = cookies();
+  const { env } = getRequestContext();
 
   return serverClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    env.SUPABASE_URL,
+    env.SUPABASE_KEY,
     {
       cookies: {
         getAll() {

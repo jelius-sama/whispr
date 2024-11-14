@@ -17,8 +17,8 @@ pages_build_output_dir = ".vercel/output/static"
 # Note: Use secrets to store sensitive data.
 # - https://developers.cloudflare.com/pages/functions/bindings/#secrets
 [vars]
-NEXT_PUBLIC_SUPABASE_URL = "https://bpsgotfmgrflivhczbux.supabase.co"
-NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJwc2dvdGZtZ3JmbGl2aGN6YnV4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE1NjI1MjgsImV4cCI6MjA0NzEzODUyOH0.mtZXe9TaYf-dPZazPEgsvPxcWyQqo74jLBfQDZYEtfM"
+SUPABASE_URL = "https://bpsgotfmgrflivhczbux.supabase.co"
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJwc2dvdGZtZ3JmbGl2aGN6YnV4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE1NjI1MjgsImV4cCI6MjA0NzEzODUyOH0.mtZXe9TaYf-dPZazPEgsvPxcWyQqo74jLBfQDZYEtfM"
 
 # Bind the Workers AI model catalog. Run machine learning models, powered by serverless GPUs, on Cloudflare’s global network
 # Docs: https://developers.cloudflare.com/pages/functions/bindings/#workers-ai
