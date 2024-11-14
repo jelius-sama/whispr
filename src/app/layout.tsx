@@ -4,7 +4,7 @@ import { ContextProviders } from "@/components/context-providers";
 import Sidenav from "@/components/layout/sidenav";
 import { Toaster } from "@/components/ui/sonner";
 import appConfig from "@/app.config";
-import { createServerClient } from "@/server/supabase/create-client";
+// import { createServerClient } from "@/server/supabase/create-client";
 import { User } from "@/components/atoms";
 
 export const metadata: Metadata = {
@@ -16,19 +16,19 @@ export const metadata: Metadata = {
   icons: appConfig.icons,
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const supabase = createServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  // const supabase = createServerClient();
+  // const { data: { user } } = await supabase.auth.getUser();
 
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body>
         <ContextProviders
-          user={user as User}
+          user={null as User | null}
           attribute="class"
           defaultTheme="system"
           enableSystem
