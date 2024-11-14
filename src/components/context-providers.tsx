@@ -25,7 +25,6 @@ export function ContextProviders({ children, user, ...props }: ContextProvidersP
             user: {
                 ...user,
                 user_metadata: user.user_metadata as UserMetadata,
-
             },
         });
     }, [user]);

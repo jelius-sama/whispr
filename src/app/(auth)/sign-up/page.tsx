@@ -5,8 +5,8 @@ import MarginedContent from "@/components/ui/margined-content";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { AlertCircle } from "lucide-react";
 import { Metadata, ServerRuntime } from "next";
-import { redirect, RedirectType } from "next/navigation";
 import Link from "next/link";
+import getUserOrRedirect from "@/utils/get-user";
 
 export const runtime: ServerRuntime = 'edge';
 
@@ -16,9 +16,7 @@ export const metadata: Metadata = {
 
 export default async function SignUpPage(props: { searchParams: Promise<{ error: string; } | null>; }) {
     const searchParams = await props.searchParams;
-    // const { user } = await getSession();
-
-    // if (user) redirect('/profile', RedirectType.replace);
+    await getUserOrRedirect({ redirectTo: 'home' });
 
     return (
         <MarginedContent style={{ height: `calc(100vh - ${(cssVars.marginPx * 2) + cssVars.headerPx}px)` }} className={`flex flex-col items-center justify-center`}>

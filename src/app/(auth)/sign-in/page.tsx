@@ -11,6 +11,7 @@ import { RedirectType } from "next/navigation";
 import { createServerClient } from "@/server/supabase/create-client";
 import { headers } from "next/headers";
 import { Button } from "@/components/ui/button";
+import getUserOrRedirect from "@/utils/get-user";
 
 export const runtime: ServerRuntime = 'edge';
 
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default async function SignInPage(props: { searchParams: Promise<{ error: string; } | null>; }) {
+    await getUserOrRedirect({ redirectTo: 'home' });
     const origin = headers().get('x-origin');
     const searchParams = await props.searchParams;
 
