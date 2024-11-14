@@ -2,13 +2,20 @@ import { getRequestContext } from "@cloudflare/next-on-pages";
 import { createBrowserClient as browserClient, createServerClient as serverClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
+const getSupabaseEnv = (env: CloudflareEnv) => {
+  return {
+    SUPABASE_URL: env.SUPABASE_URL,
+    SUPABASE_KEY: env.SUPABASE_KEY,
+  };
+};
+
 export const createServerClient = () => {
   const cookieStore = cookies();
   const { env } = getRequestContext();
+  const { SUPABASE_URL, SUPABASE_KEY } = getSupabaseEnv(env);
 
   return serverClient(
-    env.SUPABASE_URL,
-    env.SUPABASE_KEY,
+    SUPABASE_URL, SUPABASE_KEY,
     {
       cookies: {
         getAll() {
@@ -30,8 +37,9 @@ export const createServerClient = () => {
   );
 };
 
-export const createBrowserClient = () =>
-  browserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  );
+export const createBrowserClient = () => {
+  const { env } = getRequestContext();
+  const { SUPABASE_URL, SUPABASE_KEY } = getSupabaseEnv(env);
+
+  return browserClient(SUPABASE_URL, SUPABASE_KEY);
+};
