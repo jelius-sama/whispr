@@ -1,9 +1,9 @@
 import Chat from "@/components/layout/chat";
 import ChatNav from "@/components/layout/chat-nav";
 import MarginedContent from "@/components/ui/margined-content";
-import { getSession } from "@/server/auth";
+import { createServerClient } from "@/server/supabase/create-client";
 import { Metadata, ServerRuntime } from "next";
-import { redirect } from "next/navigation";
+import { redirect, RedirectType } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Home"
@@ -12,9 +12,10 @@ export const metadata: Metadata = {
 export const runtime: ServerRuntime = 'edge';
 
 export default async function HomePage({ searchParams }: { searchParams: { chat?: string; }; }) {
-  const { user } = await getSession();
+  const supabase = createServerClient();
+  const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) redirect('/sign-in');
+  if (!user) redirect('/sign-in', RedirectType.replace);
 
   return (
     <MarginedContent>

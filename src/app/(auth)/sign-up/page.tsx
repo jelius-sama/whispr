@@ -3,7 +3,6 @@ import { cssVars } from "@/app.config";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import MarginedContent from "@/components/ui/margined-content";
 import { SubmitButton } from "@/components/ui/submit-button";
-import { getSession, signUp } from "@/server/auth";
 import { AlertCircle } from "lucide-react";
 import { Metadata, ServerRuntime } from "next";
 import { redirect, RedirectType } from "next/navigation";
@@ -17,9 +16,9 @@ export const metadata: Metadata = {
 
 export default async function SignUpPage(props: { searchParams: Promise<{ error: string; } | null>; }) {
     const searchParams = await props.searchParams;
-    const { user } = await getSession();
+    // const { user } = await getSession();
 
-    if (user) redirect('/profile', RedirectType.replace);
+    // if (user) redirect('/profile', RedirectType.replace);
 
     return (
         <MarginedContent style={{ height: `calc(100vh - ${(cssVars.marginPx * 2) + cssVars.headerPx}px)` }} className={`flex flex-col items-center justify-center`}>
@@ -27,9 +26,9 @@ export default async function SignUpPage(props: { searchParams: Promise<{ error:
                 className="flex flex-col w-full max-w-[calc(28rem_+_4rem)] gap-x-1.5 gap-y-4 p-5 border rounded-md"
                 action={async (formData) => {
                     "use server";
-                    const { error } = await signUp(formData);
-                    if (error === null) redirect("/profile", RedirectType.replace);
-                    if (error !== null) redirect(`/sign-up?error=${error}`, RedirectType.replace);
+                    // const { error } = await signUp(formData);
+                    // if (error === null) redirect("/profile", RedirectType.replace);
+                    // if (error !== null) redirect(`/sign-up?error=${error}`, RedirectType.replace);
                 }}
             >
                 <p className="font-bold text-lg">Sign up</p>
