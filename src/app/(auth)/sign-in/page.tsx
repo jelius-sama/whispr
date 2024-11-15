@@ -4,16 +4,15 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import MarginedContent from "@/components/ui/margined-content";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { AlertCircle } from "lucide-react";
-import { Metadata, ServerRuntime } from "next";
+import type { Metadata, ServerRuntime } from "next";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { RedirectType } from "next/navigation";
 import { createServerClient } from "@/server/supabase/edge";
 import { headers } from "next/headers";
 import { Button } from "@/components/ui/button";
 import getUserOrRedirect from "@/utils/get-user";
 
-export const runtime: ServerRuntime = 'edge';
+export const runtime: ServerRuntime = "edge";
 
 export const metadata: Metadata = {
     title: "Sign in"

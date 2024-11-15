@@ -1,5 +1,5 @@
 import { createServerClient } from '@/server/supabase/edge';
-import { ServerRuntime } from 'next';
+import type { ServerRuntime } from 'next';
 import { NextResponse } from 'next/server';
 
 export const runtime: ServerRuntime = "edge";

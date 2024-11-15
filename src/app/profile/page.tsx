@@ -3,9 +3,9 @@ import MarginedContent from "@/components/ui/margined-content";
 import testServerFunction from "@/server/function/test";
 import { createServerClient } from "@/server/supabase/edge";
 import getUserOrRedirect from "@/utils/get-user";
-import { Metadata, ServerRuntime } from "next";
+import type { Metadata, ServerRuntime } from "next";
 
-export const runtime: ServerRuntime = 'edge';
+export const runtime: ServerRuntime = "edge";
 
 export const metadata: Metadata = {
     title: "Profile"

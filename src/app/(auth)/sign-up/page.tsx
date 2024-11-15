@@ -4,11 +4,11 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import MarginedContent from "@/components/ui/margined-content";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { AlertCircle } from "lucide-react";
-import { Metadata, ServerRuntime } from "next";
+import type { Metadata, ServerRuntime } from "next";
 import Link from "next/link";
 import getUserOrRedirect from "@/utils/get-user";
 
-export const runtime: ServerRuntime = 'edge';
+export const runtime: ServerRuntime = "edge";
 
 export const metadata: Metadata = {
     title: "Sign up"

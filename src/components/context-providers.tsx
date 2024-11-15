@@ -21,7 +21,7 @@ export function ContextProviders({ children, ...props }: ContextProvidersProps) 
         (async () => {
             setUser((await supabase.auth.getUser()).data.user as User | null);
         })();
-    }, []);
+    }, [supabase.auth]);
 
     React.useEffect(() => {
         if (!user) {
